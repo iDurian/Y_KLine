@@ -56,4 +56,36 @@
 
     return groupModel;
 }
+
++ (instancetype) newWithModels: (NSArray<Y_KLineModel *> *) models
+{
+  Y_KLineGroupModel *groupModel = [Y_KLineGroupModel new];
+  NSMutableArray *mutableArr = @[].mutableCopy;
+  __block Y_KLineModel *preModel = [[Y_KLineModel alloc]init];
+  
+  //设置数据 1或2 选择一个即可
+  // 数组类型的源数据
+  for (Y_KLineModel *item in models)
+  {
+    Y_KLineModel *model = item;
+    model.PreviousKlineModel = preModel;
+    model.ParentGroupModel = groupModel;
+    [mutableArr addObject:model];
+    
+    preModel = model;
+  }
+    
+  groupModel.models = mutableArr;
+  
+  //初始化第一个Model的数据
+  Y_KLineModel *firstModel = mutableArr[0];
+  [firstModel initFirstModel];
+  
+  //初始化其他Model的数据
+  [mutableArr enumerateObjectsUsingBlock:^(Y_KLineModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+    [model initData];
+  }];
+  
+  return groupModel;
+}
 @end

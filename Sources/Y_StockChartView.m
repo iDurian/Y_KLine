@@ -44,8 +44,8 @@
         _kLineView = [Y_KLineView new];
         [self addSubview:_kLineView];
         [_kLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.right.top.equalTo(self);
-            make.left.equalTo(self.segmentView.mas_right);
+            make.bottom.right.top.left.equalTo(self);
+//            make.left.equalTo(self.segmentView.mas_right);
         }];
     }
     return _kLineView;
@@ -53,6 +53,8 @@
 
 - (Y_StockChartSegmentView *)segmentView
 {
+    return nil;
+
     if(!_segmentView)
     {
         _segmentView = [Y_StockChartSegmentView new];
@@ -66,8 +68,15 @@
     return _segmentView;
 }
 
+- (Y_KLineModel *)currentModel
+{
+    return self.kLineView.currentModel;
+}
+
 - (void)setItemModels:(NSArray *)itemModels
 {
+    return;
+
     _itemModels = itemModels;
     if(itemModels)
     {
@@ -96,7 +105,11 @@
 }
 - (void)reloadData
 {
-    self.segmentView.selectedIndex = self.segmentView.selectedIndex;
+    self.kLineView.MainViewType = Y_StockChartcenterViewTypeKline;
+    self.kLineView.kLineModels = [self.dataSource stockDatasWithIndex:0];
+    [self.kLineView reDraw];
+
+//    self.segmentView.selectedIndex = self.segmentView.selectedIndex;
 }
 
 #pragma mark - 代理方法

@@ -24,6 +24,8 @@
  */
 @property (nonatomic, strong) Y_KLineModel *kLineModel;
 
+@property (nonatomic, copy) NSString *dateFormatter;
+
 /**
  *  最大的Y
  */

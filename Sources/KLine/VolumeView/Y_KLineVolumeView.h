@@ -51,4 +51,7 @@
  *  绘制
  */
 - (void)draw;
+
+- (CGFloat)getRealYWithOriginYPosition: (CGFloat)originY;
+
 @end

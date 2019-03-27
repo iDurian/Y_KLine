@@ -538,9 +538,9 @@
     {
         _Date = arr[0];
         _Open = @([arr[1] floatValue]);
-        _High = @([arr[2] floatValue]);
-        _Low = @([arr[3] floatValue]);  
-        _Close = @([arr[4] floatValue]);
+        _Close = @([arr[2] floatValue]);
+        _High = @([arr[3] floatValue]);
+        _Low = @([arr[4] floatValue]);  
 
         _Volume = [arr[5] floatValue];
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);

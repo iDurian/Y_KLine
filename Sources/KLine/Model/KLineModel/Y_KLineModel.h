@@ -87,7 +87,10 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 
 //移动平均数分为MA（简单移动平均数）和EMA（指数移动平均数），其计算公式如下：［C为收盘价，N为周期数］：
 //MA（N）=（C1+C2+……CN）/N
-
+@property (nonatomic, copy) NSNumber *MA5;
+@property (nonatomic, copy) NSNumber *MA10;
+@property (nonatomic, copy) NSNumber *MA20;
+@property (nonatomic, copy) NSNumber *MA60;
 
 //MA（7）=（C1+C2+……CN）/7
 @property (nonatomic, copy) NSNumber *MA7;
@@ -99,36 +102,13 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 
 @property (nonatomic, copy) NSNumber *MA26;
 
+@property (nonatomic, copy) NSNumber *Volume_MA5;
+@property (nonatomic, copy) NSNumber *Volume_MA10;
+@property (nonatomic, copy) NSNumber *Volume_MA20;
+@property (nonatomic, copy) NSNumber *Volume_MA60;
+
 @property (nonatomic, copy) NSNumber *Volume_MA7;
-
 @property (nonatomic, copy) NSNumber *Volume_MA30;
-
-@property (nonatomic, copy) NSNumber *Volume_EMA7;
-
-@property (nonatomic, copy) NSNumber *Volume_EMA30;
-
-#pragma BOLL线
-
-@property (nonatomic, copy) NSNumber *MA20;
-
-// 标准差 二次方根【 下的 (n-1)天的 C-MA二次方 和】
-@property (nonatomic, copy) NSNumber *BOLL_MD;
-
-// n-1 天的 MA
-@property (nonatomic, copy) NSNumber *BOLL_MB;
-
-// MB + k * MD
-@property (nonatomic, copy) NSNumber *BOLL_UP;
-
-// MB - k * MD
-@property (nonatomic, copy) NSNumber *BOLL_DN;
-
-//  n 个 ( Cn - MA20)的平方和
-@property (nonatomic, copy) NSNumber *BOLL_SUBMD_SUM;
-
-// 当前的 ( Cn - MA20)的平方
-@property (nonatomic, copy) NSNumber *BOLL_SUBMD;
-
 
 #pragma 第一个EMA等于MA；即EMA(n) = MA(n)
 
@@ -147,6 +127,29 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 // EMA（N）=2/（N+1）*（C-昨日EMA）+昨日EMA；
 //@property (nonatomic, assign) CGFloat EMA30;
 @property (nonatomic, copy) NSNumber *EMA26;
+
+@property (nonatomic, copy) NSNumber *Volume_EMA7;
+@property (nonatomic, copy) NSNumber *Volume_EMA30;
+
+#pragma BOLL线
+
+// 标准差 二次方根【 下的 (n-1)天的 C-MA二次方 和】
+@property (nonatomic, copy) NSNumber *BOLL_MD;
+
+// n-1 天的 MA
+@property (nonatomic, copy) NSNumber *BOLL_MB;
+
+// MB + k * MD
+@property (nonatomic, copy) NSNumber *BOLL_UP;
+
+// MB - k * MD
+@property (nonatomic, copy) NSNumber *BOLL_DN;
+
+//  n 个 ( Cn - MA20)的平方和
+@property (nonatomic, copy) NSNumber *BOLL_SUBMD_SUM;
+
+// 当前的 ( Cn - MA20)的平方
+@property (nonatomic, copy) NSNumber *BOLL_SUBMD;
 
 //MACD主要是利用长短期的二条平滑平均线，计算两者之间的差离值，作为研判行情买卖之依据。MACD指标是基于均线的构造原理，对价格收盘价进行平滑处 理(求出算术平均值)后的一种趋向类指标。它主要由两部分组成，即正负差(DIF)、异同平均数(DEA)，其中，正负差是核心，DEA是辅助。DIF是 快速平滑移动平均线(EMA1)和慢速平滑移动平均线(EMA2)的差。
 

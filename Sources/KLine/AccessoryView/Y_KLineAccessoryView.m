@@ -48,7 +48,12 @@
 
 @end
 
-@implementation Y_KLineAccessoryView
+@implementation Y_KLineAccessoryView {
+    CGFloat maxValue;
+    CGFloat minValue;
+    CGFloat unitValue;
+    CGFloat minY;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -143,11 +148,11 @@
 #pragma mark 根据KLineModel转换成Position数组
 - (NSArray *)private_convertToKLinePositionModelWithKLineModels:(NSArray *)kLineModels
 {
-    CGFloat minY = Y_StockChartKLineAccessoryViewMinY;
+    minY = Y_StockChartKLineAccessoryViewMinY;
     CGFloat maxY = Y_StockChartKLineAccessoryViewMaxY;
     
-    __block CGFloat minValue = CGFLOAT_MAX;
-    __block CGFloat maxValue = CGFLOAT_MIN;
+    minValue = CGFLOAT_MAX;
+    maxValue = CGFLOAT_MIN;
     
     NSMutableArray *volumePositionModels = @[].mutableCopy;
 
@@ -185,7 +190,7 @@
             }
         }];
         
-        CGFloat unitValue = (maxValue - minValue) / (maxY - minY);
+        unitValue = (maxValue - minValue) / (maxY - minY);
         
         [self.Accessory_DIFPositions removeAllObjects];
         [self.Accessory_DEAPositions removeAllObjects];
@@ -275,7 +280,7 @@
             }
         }];
         
-        CGFloat unitValue = (maxValue - minValue) / (maxY - minY);
+        unitValue = (maxValue - minValue) / (maxY - minY);
         
         [self.Accessory_KDJ_KPositions removeAllObjects];
         [self.Accessory_KDJ_DPositions removeAllObjects];
@@ -339,5 +344,11 @@
         [self.delegate kLineAccessoryViewCurrentMaxValue:maxValue minValue:minValue];
     }
     return volumePositionModels;
+}
+
+- (CGFloat)getRealYWithOriginYPosition: (CGFloat)originY
+{
+    // get real Y value here.
+    return maxValue - unitValue * (originY - minY);
 }
 @end

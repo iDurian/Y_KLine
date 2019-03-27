@@ -34,7 +34,12 @@
 
 @end
 
-@implementation Y_KLineVolumeView
+@implementation Y_KLineVolumeView {
+    CGFloat minVolume;
+    CGFloat maxVolume;
+    CGFloat unitValue;
+    CGFloat minY;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -98,13 +103,13 @@
 #pragma mark 根据KLineModel转换成Position数组
 - (NSArray *)private_convertToKLinePositionModelWithKLineModels:(NSArray *)kLineModels
 {
-    CGFloat minY = Y_StockChartKLineVolumeViewMinY;
+    minY = Y_StockChartKLineVolumeViewMinY;
     CGFloat maxY = Y_StockChartKLineVolumeViewMaxY;
     
     Y_KLineModel *firstModel = kLineModels.firstObject;
     
-    __block CGFloat minVolume = firstModel.Volume;
-    __block CGFloat maxVolume = firstModel.Volume;
+    minVolume = firstModel.Volume;
+    maxVolume = firstModel.Volume;
     
     [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -137,7 +142,7 @@
         }
     }];
 
-    CGFloat unitValue = (maxVolume - minVolume) / (maxY - minY);
+    unitValue = (maxVolume - minVolume) / (maxY - minY);
     
     NSMutableArray *volumePositionModels = @[].mutableCopy;
     [self.Volume_MA7Positions removeAllObjects];
@@ -196,4 +201,12 @@
     }
     return volumePositionModels;
 }
+
+
+- (CGFloat)getRealYWithOriginYPosition: (CGFloat)originY
+{
+    // get real Y value here.
+    return maxVolume - unitValue * (originY - minY);
+}
+
 @end

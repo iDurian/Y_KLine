@@ -17,6 +17,9 @@
 
 //初始化Model
 + (instancetype) objectWithArray:(NSArray *)arr;
+
++ (instancetype) newWithModels: (NSArray<Y_KLineModel *> *) models;
+
 @end
 
 //初始化第一个Model

@@ -7,6 +7,7 @@
 //
 
 #import "UIColor+Y_StockChart.h"
+//#import "KVConfig.h"
 
 @implementation UIColor (Y_StockChart)
 
@@ -24,25 +25,39 @@
 #pragma mark 所有图表的背景颜色
 +(UIColor *)backgroundColor
 {
-    return [UIColor colorWithRGBHex:0x181c20];
+  if ([[NSUserDefaults standardUserDefaults] boolForKey: @"lightMode"]) {
+    return [UIColor whiteColor];
+  }
+  return [UIColor colorWithRed:0.01 green:0.05 blue:0.08 alpha:1.00];
 }
 
 #pragma mark 辅助背景色
 +(UIColor *)assistBackgroundColor
 {
-    return [UIColor colorWithRGBHex:0x1d2227];
+    return [UIColor clearColor];
+//    return [UIColor colorWithRGBHex:0x1d2227];
 }
 
 #pragma mark 涨的颜色
 +(UIColor *)increaseColor
 {
-    return [UIColor colorWithRGBHex:0xff5353];
+//    int klineChinaStyle = [[KVConfig getDataWithKey:@"klineChinaStyle" defaultValue:@"0"] intValue];
+//    if (klineChinaStyle == 1) {
+        return [UIColor colorWithRGBHex:0xff5353];
+//    }
+//
+//    return [UIColor colorWithRGBHex:0x00b07c];
 }
 
 #pragma mark 跌的颜色
 +(UIColor *)decreaseColor
 {
-    return [UIColor colorWithRGBHex:0x00b07c];
+//    int klineChinaStyle = [[KVConfig getDataWithKey:@"klineChinaStyle" defaultValue:@"0"] intValue];
+//    if (klineChinaStyle == 1) {
+        return [UIColor colorWithRGBHex:0x00b07c];
+//    }
+//
+//    return [UIColor colorWithRGBHex:0xff5353];
 }
 
 #pragma mark 主文字颜色
@@ -54,7 +69,7 @@
 #pragma mark 辅助文字颜色
 +(UIColor *)assistTextColor
 {
-    return [UIColor colorWithRGBHex:0x565a64];
+    return [UIColor colorWithRGBHex:0x999999];
 }
 
 #pragma mark 分时线下面的成交量线的颜色

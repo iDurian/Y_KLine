@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Y_StockChartConstant.h"
+#import "Y_KLineModel.h"
+#import "Y_KLineGroupModel.h"
 
 //种类
 typedef NS_ENUM(NSInteger, Y_KLineType) {
@@ -53,6 +55,7 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
 
 @property (nonatomic, strong) NSArray *itemModels;
 
+@property (nonatomic, strong, readonly) Y_KLineModel *currentModel;
 /**
  *  数据源
  */

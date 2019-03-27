@@ -48,21 +48,21 @@
         
         
         [_DIFLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_accessoryDescLabel.mas_right);
+            make.right.equalTo(_DEALabel.mas_left);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
             
         }];
         
         [_DEALabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_DIFLabel.mas_right);
+            make.right.equalTo(_MACDLabel.mas_left);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
         }];
         
         [_MACDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_DEALabel.mas_right);
-            make.top.equalTo(self.mas_top);
+            make.right.equalTo(self).inset(10);
+            make.top.equalTo(self);
             make.bottom.equalTo(self.mas_bottom);
         }];
     }

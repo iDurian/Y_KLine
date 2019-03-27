@@ -42,13 +42,14 @@
         
         [_VolumeMA7Label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_volumeDescLabel.mas_right);
+            make.right.equalTo(_VolumeMA30Label.mas_left);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
             
         }];
         
         [_VolumeMA30Label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_VolumeMA7Label.mas_right);
+            make.right.equalTo(self.mas_right);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
         }];
@@ -67,10 +68,10 @@
 {
 
 
-    _volumeDescLabel.text = [NSString stringWithFormat:@" 成交量(7,30):%.4f ",model.Volume];
+    _volumeDescLabel.text = [NSString stringWithFormat:@"Volume: %.4f ",model.Volume];
  
-    _VolumeMA7Label.text = [NSString stringWithFormat:@"  MA7：%.8f ",model.Volume_MA7.floatValue];
-    _VolumeMA30Label.text = [NSString stringWithFormat:@"  MA30：%.8f",model.Volume_MA30.floatValue];
+    _VolumeMA7Label.text = [NSString stringWithFormat:@" MA7: %.4f ",model.Volume_MA7.floatValue];
+    _VolumeMA30Label.text = [NSString stringWithFormat:@"  MA30: %.4f",model.Volume_MA30.floatValue];
 }
 - (UILabel *)private_createLabel
 {

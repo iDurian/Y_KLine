@@ -37,6 +37,15 @@
     return self;
 }
 
+- (NSDateFormatter *)formatter {
+    static NSDateFormatter *f;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        f = [[NSDateFormatter alloc] init];
+    });
+    return f;
+}
+
 #pragma 绘制K线 - 单个
 - (UIColor *)draw
 {
@@ -64,14 +73,16 @@
     const CGPoint shadowPoints[] = {self.kLinePositionModel.HighPoint, self.kLinePositionModel.LowPoint};
     //画线
     CGContextStrokeLineSegments(context, shadowPoints, 2);
-    
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.kLineModel.Date.doubleValue/1000];
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.dateFormat = @"HH:mm";
-    NSString *dateStr = [formatter stringFromDate:date];
+
+//    [self formatter].dateFormat = @"yyyy-MM-dd HH:mm:ss";
+  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.kLineModel.Date doubleValue] / 1000.0 ];
+  
+//    NSDate *date = [[self formatter] dateFromString:self.kLineModel.Date];
+    [self formatter].dateFormat = _dateFormatter;//@"yyyy-MM-dd HH:mm";
+    NSString *dateStr = [[self formatter] stringFromDate:date];
     
     CGPoint drawDatePoint = CGPointMake(self.kLinePositionModel.LowPoint.x + 1, self.maxY + 1.5);
-    if(CGPointEqualToPoint(self.lastDrawDatePoint, CGPointZero) || drawDatePoint.x - self.lastDrawDatePoint.x > 60 )
+    if(CGPointEqualToPoint(self.lastDrawDatePoint, CGPointZero) || drawDatePoint.x - self.lastDrawDatePoint.x > [_dateFormatter length] * 12)
     {
         [dateStr drawAtPoint:drawDatePoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor assistTextColor]}];
         self.lastDrawDatePoint = drawDatePoint;

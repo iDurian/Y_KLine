@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Y_KLineModel.h"
 #import "Y_StockChartConstant.h"
+
+#define FONT(s)  [UIFont fontWithName:@"DIN-Light" size:s]
+
 @interface Y_KLineView : UIView
 
 /**
@@ -25,6 +28,8 @@
  *  数据
  */
 @property(nonatomic, copy) NSArray<Y_KLineModel *> *kLineModels;
+
+@property(nonatomic, readonly) Y_KLineModel *currentModel;
 
 /**
  *  重绘
