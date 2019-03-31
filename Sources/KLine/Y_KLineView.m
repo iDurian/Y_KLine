@@ -432,7 +432,7 @@
       [self.verticalTip setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
       [self.scrollView addSubview:self.verticalTip];
       [self.verticalTip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self);
+        make.top.equalTo(self);
         make.centerX.equalTo(self.verticalView);
         make.height.equalTo(@14);
       }];
@@ -450,6 +450,13 @@
     
     Y_KLineModel *model = [self.kLineMainView getModelWithOriginPosition:location];
     
+      if (UIGestureRecognizerStateChanged == longPress.state) {
+          [self.delegate didStartLongPress];
+      }
+      
+      [self.delegate didUpdateLongPressModel:model];
+      
+      
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.Date doubleValue] / 1000.0 ];
     [self formatter].dateFormat = @" yyyy-MM-dd HH:mm:ss ";
     self.verticalTip.text = [[self formatter] stringFromDate:date];
@@ -462,43 +469,45 @@
     _lastLabel = self.verticalTip.text;
     
     //初始化横线
-    if(!self.horizontalView)
-    {
-      self.horizontalView = [UIView new];
-      self.horizontalView.clipsToBounds = YES;
-      [self.scrollView addSubview:self.horizontalView];
-      self.horizontalView.backgroundColor = [UIColor longPressLineColor];
-      [self.horizontalView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.width.equalTo(self.scrollView.mas_width);
-        make.height.equalTo(@(Y_StockChartLongPressVerticalViewWidth));
-        make.bottom.equalTo(@(-10));
-      }];
-      
-      self.horizontalTip = [[UILabel alloc] init];
-      [self.horizontalTip setBackgroundColor:[UIColor darkGrayColor]];
-      [self.horizontalTip setTextColor:[UIColor whiteColor]];
-      [self.horizontalTip setFont: [UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
-      [self.scrollView addSubview:self.horizontalTip];
-      [self.horizontalTip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
-        make.centerX.equalTo(self.verticalView);
-        make.height.equalTo(@14);
-      }];
-    }
-    
-    //更新横线位置
-    [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
-      make.bottom.equalTo(@(rightPosition.y));
-    }];
-    [self.horizontalView layoutIfNeeded];
-    self.horizontalView.hidden = NO;
-    self.horizontalTip.hidden = NO;
-    self.horizontalTip.text = [NSString stringWithFormat:@" %.6f ", [model.Close doubleValue]];//[self tipAtY:location.y];
+//    if(!self.horizontalView)
+//    {
+//      self.horizontalView = [UIView new];
+//      self.horizontalView.clipsToBounds = YES;
+//      [self.scrollView addSubview:self.horizontalView];
+//      self.horizontalView.backgroundColor = [UIColor longPressLineColor];
+//      [self.horizontalView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self);
+//        make.width.equalTo(self.scrollView.mas_width);
+//        make.height.equalTo(@(Y_StockChartLongPressVerticalViewWidth));
+//        make.bottom.equalTo(@(-10));
+//      }];
+//      
+//      self.horizontalTip = [[UILabel alloc] init];
+//      [self.horizontalTip setBackgroundColor:[UIColor darkGrayColor]];
+//      [self.horizontalTip setTextColor:[UIColor whiteColor]];
+//      [self.horizontalTip setFont: [UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+//      [self.scrollView addSubview:self.horizontalTip];
+//      [self.horizontalTip mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self);
+//        make.centerX.equalTo(self.verticalView);
+//        make.height.equalTo(@14);
+//      }];
+//    }
+//    
+//    //更新横线位置
+//    [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
+//      make.bottom.equalTo(@(rightPosition.y));
+//    }];
+//    [self.horizontalView layoutIfNeeded];
+//    self.horizontalView.hidden = NO;
+//    self.horizontalTip.hidden = NO;
+//    self.horizontalTip.text = [NSString stringWithFormat:@" %.6f ", [model.Close doubleValue]];//[self tipAtY:location.y];
   }
   
   if(longPress.state == UIGestureRecognizerStateEnded)
   {
+      [self.delegate didEndLongPress];
+      
     //取消竖线
     if(self.verticalView)
     {

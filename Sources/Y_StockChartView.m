@@ -11,7 +11,7 @@
 #import "Masonry.h"
 #import "Y_StockChartSegmentView.h"
 #import "Y_StockChartGlobalVariable.h"
-@interface Y_StockChartView() <Y_StockChartSegmentViewDelegate>
+@interface Y_StockChartView() <Y_StockChartSegmentViewDelegate, Y_KLineViewDelegate>
 
 /**
  *  K线图View
@@ -43,6 +43,8 @@
     {
         _kLineView = [Y_KLineView new];
         [self addSubview:_kLineView];
+        
+        _kLineView.delegate = self;
         [_kLineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.right.top.left.equalTo(self);
 //            make.left.equalTo(self.segmentView.mas_right);
@@ -110,6 +112,21 @@
     [self.kLineView reDraw];
 
 //    self.segmentView.selectedIndex = self.segmentView.selectedIndex;
+}
+
+- (void)didStartLongPress 
+{
+    [self.delegate didStartLongPress];
+}
+
+- (void)didEndLongPress
+{
+    [self.delegate didEndLongPress];
+}
+
+- (void)didUpdateLongPressModel:(Y_KLineModel *)model
+{
+    [self.delegate didUpdateLongPressModel:model];
 }
 
 #pragma mark - 代理方法

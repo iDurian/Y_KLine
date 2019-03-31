@@ -159,17 +159,17 @@
 -(void)maProfileWithModel:(Y_KLineModel *)model
 {
 //    _dateDescLabel.text = [@" " stringByAppendingString: model.Date];
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.Date doubleValue] / 1000.0 ];
-  [self formatter].dateFormat = @"yyyy-MM-dd HH:mm:ss";
-  _dateDescLabel.text = [[self formatter] stringFromDate:date];
+//  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.Date doubleValue] / 1000.0 ];
+//  [self formatter].dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//  _dateDescLabel.text = [[self formatter] stringFromDate:date];
 
 //    _openLabel.text = [NSString stringWithFormat:@"%.2f",model.Open.floatValue];
 //    _highLabel.text = [NSString stringWithFormat:@"%.2f",model.High.floatValue];
 //    _lowLabel.text = [NSString stringWithFormat:@"%.2f",model.Low.floatValue];
 //    _closeLabel.text = [NSString stringWithFormat:@"%.2f",model.Close.floatValue];
 
-    _MA7Label.text = [NSString stringWithFormat:@" MA7：%.2f ",model.MA7.floatValue];
-    _MA30Label.text = [NSString stringWithFormat:@" MA30：%.2f",model.MA30.floatValue];
+//    _MA7Label.text = [NSString stringWithFormat:@" MA7：%.2f ",model.MA7.floatValue];
+//    _MA30Label.text = [NSString stringWithFormat:@" MA30：%.2f",model.MA30.floatValue];
 }
 - (UILabel *)private_createLabel
 {

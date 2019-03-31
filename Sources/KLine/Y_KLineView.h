@@ -12,7 +12,19 @@
 
 #define FONT(s)  [UIFont fontWithName:@"DIN-Light" size:s]
 
+@protocol Y_KLineViewDelegate
+
+- (void)didStartLongPress;
+
+- (void)didEndLongPress;
+
+- (void)didUpdateLongPressModel: (Y_KLineModel *)model;
+
+@end
+
 @interface Y_KLineView : UIView
+
+@property (nonatomic, weak) id<Y_KLineViewDelegate> delegate;
 
 /**
  *  第一个View的高所占比例

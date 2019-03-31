@@ -36,6 +36,11 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
 
 @protocol Y_StockChartViewDelegate <NSObject>
 
+- (void)didStartLongPress;
+
+- (void)didEndLongPress;
+
+- (void)didUpdateLongPressModel: (Y_KLineModel *)model;
 
 @end
 
@@ -56,6 +61,8 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
 @property (nonatomic, strong) NSArray *itemModels;
 
 @property (nonatomic, strong, readonly) Y_KLineModel *currentModel;
+
+@property (nonatomic, weak) id<Y_StockChartViewDelegate> delegate;
 /**
  *  数据源
  */
